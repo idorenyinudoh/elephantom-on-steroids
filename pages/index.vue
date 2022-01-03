@@ -3,6 +3,7 @@
     <TheMenu @action="toggleDisplay" />
     <main>
       <TheHeading :elephant-is-visible="!homeIsActive" />
+      <TheElephant />
     </main>
   </div>
 </template>
