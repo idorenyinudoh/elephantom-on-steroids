@@ -26,11 +26,6 @@ export default {
 </script>
 
 <style scoped>
-@media screen and (max-width: 999px) {
-  main {
-    margin-top: calc(100px + 1vw);
-  }
-}
 @media screen and (min-width: 1000px) {
   main {
     margin-left: 361px;

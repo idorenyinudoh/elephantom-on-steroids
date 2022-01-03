@@ -38,7 +38,6 @@ export default {
 <style scoped>
 @media screen and (max-width: 999px) {
   nav {
-    width: 100%;
     padding: 0 calc(20px + 1vw);
     grid-template-columns: repeat(3, max-content);
     column-gap: calc(10px + 1vw);
@@ -56,6 +55,9 @@ export default {
 }
 @media screen and (min-width: 1000px) {
   nav {
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 361px;
     height: 100vh;
     grid-template-rows: repeat(3, max-content);
@@ -75,9 +77,6 @@ export default {
 }
 
 nav {
-  position: fixed;
-  top: 0;
-  left: 0;
   display: grid;
   background-color: #B9B9FF80;
   z-index: 2;
