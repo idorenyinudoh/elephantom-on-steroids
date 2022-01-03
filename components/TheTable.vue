@@ -62,7 +62,7 @@ export default {
   },
   methods: {
     async getElephants(from) {
-      const elephants = await fetch('http://acumen-elephantom.herokuapp.com/elephants/asian')
+      const elephants = await fetch('https://acumen-elephantom.herokuapp.com/elephants/asian')
       
       await elephants.json()
       .then((response) => {
