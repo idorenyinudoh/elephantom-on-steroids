@@ -80,6 +80,7 @@ nav {
   left: 0;
   display: grid;
   background-color: #B9B9FF80;
+  z-index: 2;
 }
 
 .logo {
