@@ -3,7 +3,8 @@
     <TheMenu @action="toggleDisplay" />
     <main>
       <TheHeading :elephant-is-visible="!homeIsActive" />
-      <TheElephant />
+      <TheTable v-if="homeIsActive" />
+      <TheElephant v-else />
     </main>
   </div>
 </template>
