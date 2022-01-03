@@ -2,7 +2,7 @@
   <nav>
     <div class="logo">
       <div class="img-container">
-        <img src="/elephant.png" alt="elephant logo">
+        <img src="~/assets/elephant.png" alt="elephant logo">
       </div>
     </div>
     <button :class="{ active: homeIsActive }" @click="toggleActive('home')">
