@@ -1,10 +1,10 @@
 <template>
   <div class="container">
-    <TheMenu @action="toggleDisplay" />
+    <TheMenu :home-is-active="homeIsActive" @action="toggleDisplay" />
     <main>
       <TheHeading :elephant-is-visible="!homeIsActive" />
-      <TheTable v-if="homeIsActive" />
-      <TheElephant v-else />
+      <TheTable v-if="homeIsActive" @trumpet="updateDisplay" />
+      <TheElephant v-else :elephant="elephant" />
     </main>
   </div>
 </template>
@@ -14,12 +14,17 @@ export default {
   name: 'IndexPage',
   data() {
     return {
-      homeIsActive: true
+      homeIsActive: true,
+      elephant: {}
     }
   },
   methods: {
     toggleDisplay(button) {
       button === 'home' ? this.homeIsActive = true : this.homeIsActive = false
+    },
+    updateDisplay(elephant) {
+      this.elephant = elephant
+      this.homeIsActive = false
     }
   }
 }

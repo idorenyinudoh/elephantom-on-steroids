@@ -14,7 +14,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr v-for="elephant in tableData" :key="elephant._id">
+      <tr v-for="elephant in tableData" :key="elephant._id" @click="$emit('trumpet', elephant)">
         <td> {{ elephant.index }} </td>
         <td> {{ elephant.name }} </td>
         <td> {{ elephant.species }} </td>
@@ -80,7 +80,9 @@ export default {
               species: elephant.species,
               sex: elephant.sex,
               affiliation: elephant.affiliation,
-              dob: elephant.dob
+              dob: elephant.dob,
+              note: elephant.note,
+              image: elephant.image
             })
           }
         });
@@ -145,6 +147,7 @@ tbody tr {
   font-size: 16px;
   line-height: 25px;
   color: #848383;
+  cursor: pointer;
 }
 
 tfoot tr {

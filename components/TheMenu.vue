@@ -16,19 +16,15 @@
 
 <script>
 export default {
-  data() {
-    return {
-      homeIsActive: true
+  props: {
+    homeIsActive: {
+      type: Boolean,
+      required: false,
+      default: true
     }
   },
   methods: {
     toggleActive(button) {
-      if (button === 'home') {
-        this.homeIsActive = true
-      } else {
-        this.homeIsActive = false
-      }
-
       this.$emit('action', button)
     }
   }

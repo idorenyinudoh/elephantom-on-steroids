@@ -1,21 +1,33 @@
 <template>
   <div class="container">
     <div class="img-container">
-      <img src="~/assets/tuffi.png" alt="female tuffi">
+      <img :src="elephant.image" :alt="`${elephant.sex} ${elephant.name}`">
     </div>
     <div class="texts">
       <h2>
-        Tuffi
+        {{ elephant.name }}
       </h2>
       <p>
-        Female
+        {{ elephant.sex }}
       </p>
     </div>
     <p>
-      A female circus elephant that became famous in Germany during 1950 when she accidentally fell into the River Wupper, and survived.
+      {{ elephant.note }}
     </p>
   </div>  
 </template>
+
+<script>
+export default {
+  props: {
+    elephant: {
+      type: Object,
+      required: false,
+      default() {}
+    }
+  }
+}
+</script>
 
 <style scoped>
 .container {
@@ -25,22 +37,18 @@
 .img-container {
   position: relative;
   width: 100%;
-  padding-top: 45.6%;
 }
 
 .img-container img {
-  position: absolute;
   width: 100%;
-  top: 0;
-  left: 0;
 }
 
 .img-container::after {
   position: absolute;
   top: 0;
   left: 0;
+  bottom: 6px;
   width: 100%;
-  height: 100%;
   content: '';
   background: linear-gradient(180deg, #C4C4C400 -1.55%, #1D1DF25E 77.84%);
 }
