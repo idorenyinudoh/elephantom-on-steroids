@@ -14,85 +14,29 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>1</td>
-        <td>Name</td>
-        <td>Species</td>
-        <td>Sex</td>
-        <td>Affiliation</td>
-        <td>Dob</td>
-      </tr>
-      <tr>
-        <td>1</td>
-        <td>Name</td>
-        <td>Species</td>
-        <td>Sex</td>
-        <td>Affiliation</td>
-        <td>Dob</td>
-      </tr>
-      <tr>
-        <td>1</td>
-        <td>Name</td>
-        <td>Species</td>
-        <td>Sex</td>
-        <td>Affiliation</td>
-        <td>Dob</td>
-      </tr>
-      <tr>
-        <td>1</td>
-        <td>Name</td>
-        <td>Species</td>
-        <td>Sex</td>
-        <td>Affiliation</td>
-        <td>Dob</td>
-      </tr>
-      <tr>
-        <td>1</td>
-        <td>Name</td>
-        <td>Species</td>
-        <td>Sex</td>
-        <td>Affiliation</td>
-        <td>Dob</td>
-      </tr>
-      <tr>
-        <td>1</td>
-        <td>Name</td>
-        <td>Species</td>
-        <td>Sex</td>
-        <td>Affiliation</td>
-        <td>Dob</td>
-      </tr>
-      <tr>
-        <td>1</td>
-        <td>Name</td>
-        <td>Species</td>
-        <td>Sex</td>
-        <td>Affiliation</td>
-        <td>Dob</td>
-      </tr>
-      <tr>
-        <td>1</td>
-        <td>Name</td>
-        <td>Species</td>
-        <td>Sex</td>
-        <td>Affiliation</td>
-        <td>Dob</td>
+      <tr v-for="elephant in tableData" :key="elephant._id">
+        <td> {{ elephant.index }} </td>
+        <td> {{ elephant.name }} </td>
+        <td> {{ elephant.species }} </td>
+        <td> {{ elephant.sex }} </td>
+        <td> {{ elephant.affiliation }} </td>
+        <td> {{ elephant.dob }} </td>
       </tr>
     </tbody>
     <tfoot>
       <tr>
         <td>
           <p>
-            PAGE 1 OF 10
+            PAGE {{ displayedPage }} OF {{ totalPages }}
           </p>
-          <button disabled>
+          <button :disabled="displayedPage === 1" @click="displayPrevious">
             <svg width="9" height="12" viewBox="0 0 9 12" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M8.16 1.41L3.58 6L8.16 10.59L6.75 12L0.750004 6L6.75 0L8.16 1.41Z" fill="#C4CDD5"/>
             </svg>
           </button>
-          <button class="active">1</button>
-          <button>2</button>
-          <button>
+          <button class="active"> {{ displayedPage }} </button>
+          <button :disabled="displayedPage === totalPages" @click="displayNext"> {{ displayedPage + 1 }} </button>
+          <button :disabled="displayedPage === totalPages" @click="displayNext">
             <svg width="9" height="12" viewBox="0 0 9 12" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M0.839996 1.41L5.42 6L0.839996 10.59L2.25 12L8.25 6L2.25 0L0.839996 1.41Z" fill="#C4CDD5"/>
             </svg>
@@ -102,6 +46,61 @@
     </tfoot>
   </table>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      tableData: [],
+      dataLength: 0,
+      displayedPage: 1,
+      totalPages: 0
+    }
+  },
+  mounted() {
+    this.getElephants(0)
+  },
+  methods: {
+    async getElephants(from) {
+      const elephants = await fetch('http://acumen-elephantom.herokuapp.com/elephants/asian')
+      
+      await elephants.json()
+      .then((response) => {
+        const arrayOfElephants = response.data
+        this.dataLength = arrayOfElephants.length
+        this.totalPages = Math.round(arrayOfElephants.length / 8)
+
+        this.tableData = []
+        arrayOfElephants.forEach((elephant, index) => {
+          if (index >= from && index <= from + 7) {
+            this.tableData.push({
+              _id: elephant._id,
+              index: index + 1,
+              name: elephant.name,
+              species: elephant.species,
+              sex: elephant.sex,
+              affiliation: elephant.affiliation,
+              dob: elephant.dob
+            })
+          }
+        });
+      })
+    },
+    displayNext() {
+      const from = this.displayedPage * 8
+
+      this.getElephants(from)
+      ++this.displayedPage
+    },
+    displayPrevious() {
+      const from = (this.displayedPage - 2) * 8
+
+      this.getElephants(from)
+      --this.displayedPage
+    }
+  }
+}
+</script>
 
 <style scoped>
 table {
